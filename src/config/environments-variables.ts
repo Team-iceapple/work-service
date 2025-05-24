@@ -1,4 +1,4 @@
-import {IsEnum, IsNumber, IsString, Max, Min} from 'class-validator';
+import { IsEnum, IsNumber, IsString, Max, Min } from 'class-validator';
 
 import { Environment } from './environment.enum';
 
@@ -12,10 +12,10 @@ export class EnvironmentVariables {
     PORT: number;
 
     @IsString()
-    DB_NAME: string
+    DB_NAME: string;
 
     @IsString()
-    DB_USER: string
+    DB_USER: string;
 
     @IsString()
     DB_PASSWORD: string;
@@ -26,5 +26,5 @@ export class EnvironmentVariables {
     @IsNumber()
     @Min(0)
     @Max(65535)
-    DB_PORT: string;
+    DB_PORT: number;
 }
