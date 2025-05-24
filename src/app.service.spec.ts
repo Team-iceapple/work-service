@@ -16,7 +16,7 @@ import {
 } from '@/dto';
 import { WorkEntity } from '@/entity';
 import { WorkNotFoundException } from '@/exceptions';
-import {AppMapper, FileManager} from '@/utils';
+import { AppMapper, FileManager } from '@/utils';
 
 describe('AppService', () => {
     let service: AppService;
