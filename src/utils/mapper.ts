@@ -45,7 +45,7 @@ export class AppMapper implements WorkMapper {
             entity.description = dto.description;
             entity.members = dto.members.join(',');
             entity.thumbnail = dto.thumbnail.filename;
-            entity.pdf_url = dto.pdf.path;
+            entity.pdf_url = dto.pdf.filename;
             entity.year = dto.year;
         }
 
