@@ -92,6 +92,7 @@ export class AppController {
         updateWorkFile: UpdateWorkFile,
     ) {
         this.logger.debug('update');
+        this.logger.debug(updateWorkFile);
 
         const dto = new UpdateWorkDto(id, updateWorkBody, updateWorkFile);
 

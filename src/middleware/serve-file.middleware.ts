@@ -8,15 +8,16 @@ export function serveFileMiddleware(
 ) {
     const accept = req.get('Accept') ?? null;
 
-    if (!accept || accept === '*/*')
+    if (!accept || accept === '*/*') {
         return res
             .status(HttpStatus.BAD_REQUEST)
             .type('application/json')
             .send({
                 message:
                     "Accept header must be set to 'image/png', 'image/jpeg', or 'application/pdf'\n",
-                statusCode: HttpStatus.BAD_REQUEST,
+                status: HttpStatus.BAD_REQUEST,
             });
+    }
 
     let contentType: string;
 

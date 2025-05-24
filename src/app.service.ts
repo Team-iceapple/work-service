@@ -11,6 +11,7 @@ import type {
 import { WorkNotFoundException } from '@/exceptions';
 import type { WorkService } from '@/interfaces';
 import { AppMapper } from '@/utils';
+import { FileManager } from '@/utils/file';
 
 @Injectable()
 export class AppService implements WorkService {
@@ -19,11 +20,14 @@ export class AppService implements WorkService {
     constructor(
         private readonly mapper: AppMapper,
         private readonly repository: AppRepository,
+        private readonly fileManager: FileManager,
     ) {}
 
     async create(createWorkDto: CreateWorkDto): Promise<void> {
         this.logger.debug('create');
+        this.logger.debug(createWorkDto);
         const entity = this.mapper.toEntity(createWorkDto);
+        this.logger.debug(entity);
         await this.repository.create(entity);
     }
 
@@ -45,20 +49,39 @@ export class AppService implements WorkService {
 
     async update(updateWorkDto: UpdateWorkDto): Promise<void> {
         this.logger.debug('update');
-        const isExist = await this.repository.isExist(updateWorkDto.id);
-        if (!isExist) throw new WorkNotFoundException(updateWorkDto.id);
+        this.logger.debug(updateWorkDto);
+        const entity = await this.repository.findById(updateWorkDto.id);
+        if (!entity) throw new WorkNotFoundException(updateWorkDto.id);
 
-        const entity = this.mapper.toEntity(updateWorkDto);
+        const updatedEntity = this.mapper.toEntity(updateWorkDto);
+        this.logger.debug(updatedEntity);
 
-        await this.repository.update(entity);
+        const targetFileNames: string[] = [];
+
+        if (updatedEntity.thumbnail) targetFileNames.push(entity.thumbnail);
+        if (updatedEntity.pdf_url) targetFileNames.push(entity.pdf_url);
+
+        const promises: Promise<void>[] = targetFileNames.map(async (name) =>
+            this.fileManager.deleteFile(name),
+        );
+
+        await Promise.all(promises);
+
+        await this.repository.update(updatedEntity);
     }
 
     async remove(removeWorkDto: RemoveWorkDto): Promise<void> {
         this.logger.debug('remove');
-        const isExist = await this.repository.isExist(removeWorkDto.id);
-        if (!isExist) throw new WorkNotFoundException(removeWorkDto.id);
+        const entity = await this.repository.findById(removeWorkDto.id);
+        if (!entity) throw new WorkNotFoundException(removeWorkDto.id);
 
-        const entity = this.mapper.toEntity(removeWorkDto);
+        const targetFileNames = [entity.pdf_url, entity.thumbnail];
+
+        const promises = targetFileNames.map(async (name) =>
+            this.fileManager.deleteFile(name),
+        );
+
+        await Promise.all(promises);
 
         await this.repository.remove(entity);
     }
