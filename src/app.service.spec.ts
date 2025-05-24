@@ -16,19 +16,22 @@ import {
 } from '@/dto';
 import { WorkEntity } from '@/entity';
 import { WorkNotFoundException } from '@/exceptions';
-import { AppMapper } from '@/utils';
+import {AppMapper, FileManager} from '@/utils';
 
 describe('AppService', () => {
     let service: AppService;
     let repository: MockProxy<AppRepository>;
     let mapper: AppMapper;
+    let fileManager: MockProxy<FileManager>;
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
-            providers: [AppService, AppRepository, AppMapper],
+            providers: [AppService, AppRepository, AppMapper, FileManager],
         })
             .overrideProvider(AppRepository)
             .useValue(mock<AppRepository>())
+            .overrideProvider(FileManager)
+            .useValue(mock<FileManager>())
             .compile();
 
         service = app.get(AppService);
@@ -176,7 +179,7 @@ describe('AppService', () => {
             const workEntity = mapper.toEntity(updateWorkDto);
 
             const mockUpdate = repository.update.mockResolvedValue();
-            repository.isExist.mockResolvedValue(true);
+            repository.findById.mockResolvedValue(new WorkEntity());
 
             await service.update(updateWorkDto);
 
@@ -194,7 +197,7 @@ describe('AppService', () => {
             };
 
             const mockRemove = repository.remove.mockResolvedValue();
-            repository.isExist.mockResolvedValue(false);
+            repository.findById.mockResolvedValue(null);
 
             await expect(service.remove(removeWorkDto)).rejects.toThrow(
                 WorkNotFoundException,
@@ -212,7 +215,7 @@ describe('AppService', () => {
             const workEntity = mapper.toEntity(removeWorkDto);
 
             const mockRemove = repository.remove.mockResolvedValue();
-            repository.isExist.mockResolvedValue(true);
+            repository.findById.mockResolvedValue(new WorkEntity());
 
             await service.remove(removeWorkDto);
 
