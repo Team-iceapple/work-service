@@ -1,6 +1,8 @@
 import { Test, type TestingModule } from '@nestjs/testing';
 import { MockProxy, mock } from 'jest-mock-extended';
 
+import { AppController } from '@/app.controller';
+import { AppService } from '@/app.service';
 import {
     CreateWorkBody,
     CreateWorkDto,
@@ -13,8 +15,6 @@ import {
     WorkDto,
 } from '@/dto';
 import { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 describe('AppController', () => {
     let controller: AppController;
