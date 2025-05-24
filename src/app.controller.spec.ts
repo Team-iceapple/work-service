@@ -60,7 +60,7 @@ describe('AppController', () => {
     });
 
     describe('findById', () => {
-        it('GetDetailWorkResponse', async () => {
+        it('GetDetailWorkResponse를 반환한다.', async () => {
             const id = 'uuid1';
 
             const work: WorkDto = {
