@@ -1,7 +1,12 @@
-import {Injectable, InternalServerErrorException, Logger} from '@nestjs/common';
-import * as path from 'node:path';
-import {FILE_UPLOAD_PATH} from '@/config';
 import { promises as fs } from 'node:fs';
+import * as path from 'node:path';
+import {
+    Injectable,
+    InternalServerErrorException,
+    Logger,
+} from '@nestjs/common';
+
+import { FILE_UPLOAD_PATH } from '@/config';
 
 @Injectable()
 export class FileManager {
@@ -15,16 +20,13 @@ export class FileManager {
             await fs.unlink(filePath);
             this.logger.debug(`File Deleted Successfully - ${filePath}`);
         } catch (error) {
-            if (this.isErrnoException(error) && error.code === "ENOENT") return this.logger.warn(`file Not Exists - ${filePath}`);
+            if (this.isErrnoException(error) && error.code === 'ENOENT')
+                return this.logger.warn(`file Not Exists - ${filePath}`);
             throw new InternalServerErrorException();
         }
     }
 
     private isErrnoException(error: unknown): error is NodeJS.ErrnoException {
-        return (
-            typeof error === 'object' &&
-            error !== null &&
-            'code' in error
-        );
+        return typeof error === 'object' && error !== null && 'code' in error;
     }
 }

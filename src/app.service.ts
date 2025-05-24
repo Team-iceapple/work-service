@@ -11,7 +11,7 @@ import type {
 import { WorkNotFoundException } from '@/exceptions';
 import type { WorkService } from '@/interfaces';
 import { AppMapper } from '@/utils';
-import {FileManager} from '@/utils/file';
+import { FileManager } from '@/utils/file';
 
 @Injectable()
 export class AppService implements WorkService {
@@ -61,7 +61,9 @@ export class AppService implements WorkService {
         if (updatedEntity.thumbnail) targetFileNames.push(entity.thumbnail);
         if (updatedEntity.pdf_url) targetFileNames.push(entity.pdf_url);
 
-        const promises: Promise<void>[] = targetFileNames.map(async (name) => this.fileManager.deleteFile(name));
+        const promises: Promise<void>[] = targetFileNames.map(async (name) =>
+            this.fileManager.deleteFile(name),
+        );
 
         await Promise.all(promises);
 
@@ -75,7 +77,9 @@ export class AppService implements WorkService {
 
         const targetFileNames = [entity.pdf_url, entity.thumbnail];
 
-        const promises = targetFileNames.map(async (name) => this.fileManager.deleteFile(name));
+        const promises = targetFileNames.map(async (name) =>
+            this.fileManager.deleteFile(name),
+        );
 
         await Promise.all(promises);
 

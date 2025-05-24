@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
+import { KyselyModule } from 'nestjs-kysely';
 
 import { AppController } from '@/app.controller';
 import { AppRepository } from '@/app.repository';
@@ -10,8 +11,7 @@ import {
     configValidate,
     kyselyConfigFactory,
 } from '@/config';
-import {AppMapper, FileManager} from '@/utils';
-import { KyselyModule } from 'nestjs-kysely';
+import { AppMapper, FileManager } from '@/utils';
 
 @Module({
     imports: [
