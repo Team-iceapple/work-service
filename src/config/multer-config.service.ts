@@ -4,7 +4,7 @@ import {
     MulterOptionsFactory,
 } from '@nestjs/platform-express';
 
-import { FILE_UPLOAD_PATH } from '@/config/constants';
+import { FILE_UPLOAD_PATH } from './constants';
 
 @Injectable()
 export class MulterConfigService implements MulterOptionsFactory {
