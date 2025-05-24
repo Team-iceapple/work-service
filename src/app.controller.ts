@@ -1,15 +1,15 @@
 import {
     Body,
     Controller,
-    Delete,
+    Delete, FileTypeValidator,
     Get,
     HttpCode,
     HttpStatus,
     Logger,
-    Param,
+    Param, ParseFilePipe,
     ParseUUIDPipe,
     Patch,
-    Post, UploadedFiles,
+    Post, UploadedFiles, UseGuards, UseInterceptors,
 } from '@nestjs/common';
 
 import { AppService } from './app.service';
@@ -23,6 +23,10 @@ import {
     UpdateWorkDto,
     UpdateWorkFile,
 } from '@/dto';
+import {FileFieldsInterceptor} from '@nestjs/platform-express';
+import {CreateWorkFileValidationPipe, UpdateWorkFileValidationPipe} from '@/pipe';
+import {FormDataOnlyGuard} from '@/guard';
+import {getWorkFileFields} from '@/utils';
 
 @Controller('works')
 export class AppController {
@@ -56,11 +60,14 @@ export class AppController {
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
+    @UseGuards(FormDataOnlyGuard)
+    @UseInterceptors(FileFieldsInterceptor(getWorkFileFields()))
     async create(
         @Body() createWorkBody: CreateWorkBody,
-        @UploadedFiles() creatWorkFile: CreateWorkFile,
+        @UploadedFiles(new CreateWorkFileValidationPipe()) creatWorkFile: CreateWorkFile,
     ) {
         this.logger.debug('create');
+        this.logger.debug(creatWorkFile);
 
         const dto = new CreateWorkDto(createWorkBody, creatWorkFile);
 
@@ -69,10 +76,12 @@ export class AppController {
 
     @Patch(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
+    @UseGuards(FormDataOnlyGuard)
+    @UseInterceptors(FileFieldsInterceptor(getWorkFileFields()))
     async update(
         @Param('id', new ParseUUIDPipe()) id: string,
         @Body() updateWorkBody: UpdateWorkBody,
-        @UploadedFiles() updateWorkFile: UpdateWorkFile,
+        @UploadedFiles(new UpdateWorkFileValidationPipe()) updateWorkFile: UpdateWorkFile,
     ) {
         this.logger.debug('update');
 

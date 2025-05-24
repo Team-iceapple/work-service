@@ -1,0 +1,1 @@
+export { MulterConfigService } from './multer-config.service';
