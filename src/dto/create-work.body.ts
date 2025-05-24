@@ -1,4 +1,4 @@
-import {IsNumber, IsString, Length} from 'class-validator';
+import { IsNumber, IsString, Length } from 'class-validator';
 
 export class CreateWorkBody {
     @IsString()

@@ -6,9 +6,10 @@ import {
     HttpCode,
     HttpStatus,
     Logger,
-    Param, ParseUUIDPipe,
+    Param,
+    ParseUUIDPipe,
     Patch,
-    Post,
+    Post, UploadedFiles,
 } from '@nestjs/common';
 
 import { AppService } from './app.service';
@@ -42,7 +43,9 @@ export class AppController {
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
-    async findById(@Param('id', new ParseUUIDPipe()) id: string): Promise<GetDetailWorkResponse> {
+    async findById(
+        @Param('id', new ParseUUIDPipe()) id: string,
+    ): Promise<GetDetailWorkResponse> {
         this.logger.debug('findById');
         const work = await this.service.findById(id);
 
@@ -53,19 +56,13 @@ export class AppController {
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    async create(@Body() createWorkBody: CreateWorkBody) {
+    async create(
+        @Body() createWorkBody: CreateWorkBody,
+        @UploadedFiles() creatWorkFile: CreateWorkFile,
+    ) {
         this.logger.debug('create');
-        const files = new CreateWorkFile();
 
-        files.pdf = {
-            path: 'example1.pdf',
-        } as Express.Multer.File;
-
-        files.thumbnail = {
-            path: 'thumnail4.jpg',
-        } as Express.Multer.File;
-
-        const dto = new CreateWorkDto(createWorkBody, files);
+        const dto = new CreateWorkDto(createWorkBody, creatWorkFile);
 
         await this.service.create(dto);
     }
@@ -75,19 +72,11 @@ export class AppController {
     async update(
         @Param('id', new ParseUUIDPipe()) id: string,
         @Body() updateWorkBody: UpdateWorkBody,
+        @UploadedFiles() updateWorkFile: UpdateWorkFile,
     ) {
         this.logger.debug('update');
 
-        const files = new UpdateWorkFile();
-        files.pdf = {
-            path: 'example1.pdf',
-        } as Express.Multer.File;
-
-        files.thumbnail = {
-            path: 'thumnail4.jpg',
-        } as Express.Multer.File;
-
-        const dto = new UpdateWorkDto(id, updateWorkBody, files);
+        const dto = new UpdateWorkDto(id, updateWorkBody, updateWorkFile);
 
         await this.service.update(dto);
     }
