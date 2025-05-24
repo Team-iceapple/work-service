@@ -9,7 +9,7 @@ export class AppRepository implements WorkRepository {
 
     private db: WorkEntity[] = [
         {
-            id: '1',
+            id: 'ce04db26-7639-44f4-bffe-cd14f9b06dea',
             name: 'AI 기반 드론 제어 시스템',
             members: '김지훈,이서연,박민준',
             thumbnail: '/thumbnail1.jpg',
@@ -19,7 +19,7 @@ export class AppRepository implements WorkRepository {
             created_at: new Date('2023-11-15T10:00:00Z'),
         },
         {
-            id: '2',
+            id: '4d459dfe-b57c-4c28-9da1-36aef604e7d8',
             name: '스마트 헬스케어 플랫폼',
             members: '정예린,한도현',
             thumbnail: '/thumbnail2.jpg',
@@ -30,7 +30,7 @@ export class AppRepository implements WorkRepository {
             created_at: new Date('2024-05-10T15:30:00Z'),
         },
         {
-            id: '3',
+            id: '11f4dfd5-e3a6-4057-a2a5-d3e83398ab14',
             name: '에너지 효율 최적화 시스템',
             members: '오세훈,장하영,배민수',
             thumbnail: '/thumbnail3.jpg',
@@ -44,7 +44,7 @@ export class AppRepository implements WorkRepository {
 
     async create(entity: WorkEntity): Promise<void> {
         this.logger.debug('create');
-        entity.id = String(this.db.length + 1);
+        entity.id = '59f0066e-b323-48d4-9eea-3ac7536778ad';
 
         this.db.push(entity);
     }

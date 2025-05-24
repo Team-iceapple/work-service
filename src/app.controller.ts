@@ -6,7 +6,7 @@ import {
     HttpCode,
     HttpStatus,
     Logger,
-    Param,
+    Param, ParseUUIDPipe,
     Patch,
     Post,
 } from '@nestjs/common';
@@ -14,15 +14,14 @@ import {
 import { AppService } from './app.service';
 import type { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
 import {
-    type CreateWorkBody,
+    CreateWorkBody,
     CreateWorkDto,
     CreateWorkFile,
     RemoveWorkDto,
-    type UpdateWorkBody,
+    UpdateWorkBody,
     UpdateWorkDto,
     UpdateWorkFile,
 } from '@/dto';
-import { Express } from 'express';
 
 @Controller('works')
 export class AppController {
@@ -43,7 +42,7 @@ export class AppController {
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
-    async findById(@Param('id') id: string): Promise<GetDetailWorkResponse> {
+    async findById(@Param('id', new ParseUUIDPipe()) id: string): Promise<GetDetailWorkResponse> {
         this.logger.debug('findById');
         const work = await this.service.findById(id);
 
@@ -74,7 +73,7 @@ export class AppController {
     @Patch(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
     async update(
-        @Param('id') id: string,
+        @Param('id', new ParseUUIDPipe()) id: string,
         @Body() updateWorkBody: UpdateWorkBody,
     ) {
         this.logger.debug('update');
@@ -95,7 +94,7 @@ export class AppController {
 
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
-    async remove(@Param('id') id: string): Promise<void> {
+    async remove(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
         this.logger.debug('remove');
         const dto = new RemoveWorkDto(id);
 
