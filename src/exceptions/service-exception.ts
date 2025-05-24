@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus} from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export class ServiceException extends HttpException {
     constructor(
@@ -6,9 +6,12 @@ export class ServiceException extends HttpException {
         error: string,
         public message: string,
     ) {
-        super({
-            error,
-            message,
-        }, status);
+        super(
+            {
+                error,
+                message,
+            },
+            status,
+        );
     }
 }
