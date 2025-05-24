@@ -1,5 +1,6 @@
 export class ServiceExceptionResponse {
+    error: string;
     status: number;
-    message: string;
+    message: string | string[];
     path: string;
 }

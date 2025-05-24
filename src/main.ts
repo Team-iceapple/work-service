@@ -9,7 +9,7 @@ import {
     FILE_SERVE_PREFIX,
     FILE_UPLOAD_PATH,
 } from '@/config';
-import { ServiceExceptionFilter } from '@/filter';
+import { CustomExceptionFilter } from '@/filter';
 import { serveFileMiddleware } from '@/middleware';
 
 async function bootstrap() {
@@ -25,7 +25,7 @@ async function bootstrap() {
         prefix: FILE_SERVE_PREFIX,
     });
 
-    app.useGlobalFilters(new ServiceExceptionFilter());
+    app.useGlobalFilters(new CustomExceptionFilter());
     app.useGlobalPipes(
         new ValidationPipe({
             transform: true,

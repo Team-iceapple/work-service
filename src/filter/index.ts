@@ -1,1 +1,1 @@
-export { ServiceExceptionFilter } from './service-exception.filter';
+export { CustomExceptionFilter } from './custom-exception.filter';
