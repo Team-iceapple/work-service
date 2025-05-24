@@ -1,19 +1,21 @@
 import { Test, type TestingModule } from '@nestjs/testing';
-import {mock, MockProxy} from 'jest-mock-extended';
+import { mock, MockProxy } from 'jest-mock-extended';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {GetDetailWorkResponse, GetWorksResponse} from '@/responses';
+import { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
 import {
     CreateWorkBody,
     CreateWorkDto,
     CreateWorkFile,
-    PreviewWorkDto, RemoveWorkDto,
-    UpdateWorkBody, UpdateWorkDto,
+    PreviewWorkDto,
+    RemoveWorkDto,
+    UpdateWorkBody,
+    UpdateWorkDto,
     UpdateWorkFile,
     WorkDto,
 } from '@/dto';
-import {Express} from 'express';
+import { Express } from 'express';
 
 describe('AppController', () => {
     let controller: AppController;
@@ -22,9 +24,7 @@ describe('AppController', () => {
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
             controllers: [AppController],
-            providers: [
-                AppService,
-            ],
+            providers: [AppService],
         })
             .overrideProvider(AppService)
             .useValue(mock<AppService>())
@@ -43,16 +43,16 @@ describe('AppController', () => {
                     members: ['member1'],
                     thumbnail: 'thumbnail1',
                     year: 2025,
-                }
+                },
             ];
 
-           const expected: GetWorksResponse = {
-               works,
-           };
+            const expected: GetWorksResponse = {
+                works,
+            };
 
-           const mockFindAll = service.findAll.mockResolvedValue(works);
+            const mockFindAll = service.findAll.mockResolvedValue(works);
 
-           const actual = await controller.findAll();
+            const actual = await controller.findAll();
 
             expect(actual).toEqual(expected);
             expect(mockFindAll).toHaveBeenCalledTimes(1);
@@ -69,7 +69,7 @@ describe('AppController', () => {
                 members: ['member'],
                 pdf_url: 'pdf.pdf',
                 description: 'description',
-                year: 2025
+                year: 2025,
             };
 
             const expected: GetDetailWorkResponse = {
@@ -161,5 +161,4 @@ describe('AppController', () => {
             expect(mockRemove).toHaveBeenCalledTimes(1);
         });
     });
-
 });

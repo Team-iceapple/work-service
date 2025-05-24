@@ -12,7 +12,9 @@ export class FormDataOnlyGuard implements CanActivate {
         const contentType = request.headers['content-type'];
 
         if (!contentType || !contentType.includes('multipart/form-data')) {
-            throw new UnsupportedMediaTypeException('Content-Type must be \'multipart/form-data\'');
+            throw new UnsupportedMediaTypeException(
+                "Content-Type must be 'multipart/form-data'",
+            );
         }
 
         return true;

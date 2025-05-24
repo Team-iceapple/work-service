@@ -1,5 +1,5 @@
 import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
-import {CreateWorkFile} from '@/dto';
+import { CreateWorkFile } from '@/dto';
 
 @Injectable()
 export class CreateWorkFileValidationPipe implements PipeTransform {
@@ -32,6 +32,6 @@ export class CreateWorkFileValidationPipe implements PipeTransform {
         return {
             thumbnail: thumbnail[0],
             pdf: pdf[0],
-        }
+        };
     }
 }

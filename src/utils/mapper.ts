@@ -44,7 +44,7 @@ export class AppMapper implements WorkMapper {
             entity.name = dto.name;
             entity.description = dto.description;
             entity.members = dto.members.join(',');
-            entity.thumbnail = dto.thumbnail.path;
+            entity.thumbnail = dto.thumbnail.filename;
             entity.pdf_url = dto.pdf.path;
             entity.year = dto.year;
         }
@@ -58,8 +58,8 @@ export class AppMapper implements WorkMapper {
             if (dto.members !== undefined)
                 entity.members = dto.members.join(',');
             if (dto.thumbnail !== undefined)
-                entity.thumbnail = dto.thumbnail.path;
-            if (dto.pdf !== undefined) entity.pdf_url = dto.pdf.path;
+                entity.thumbnail = dto.thumbnail.filename;
+            if (dto.pdf !== undefined) entity.pdf_url = dto.pdf.filename;
             if (dto.year !== undefined) entity.year = dto.year;
         }
 

@@ -5,11 +5,7 @@ import * as path from 'node:path';
 const rootDir = path.resolve();
 
 const config: JestConfigWithTsJest = {
-    moduleFileExtensions: [
-        'js',
-        'json',
-        'ts',
-    ],
+    moduleFileExtensions: ['js', 'json', 'ts'],
     rootDir: 'src',
     testRegex: '.*\\.spec\\.ts$',
     transform: {
