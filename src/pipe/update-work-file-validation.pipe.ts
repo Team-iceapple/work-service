@@ -1,5 +1,6 @@
-import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
-import { CreateWorkFile, UpdateWorkFile } from '@/dto';
+import { Injectable, PipeTransform } from '@nestjs/common';
+
+import { UpdateWorkFile } from '@/dto';
 
 @Injectable()
 export class UpdateWorkFileValidationPipe implements PipeTransform {

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import type { WorkRepository } from '@/interfaces';
 import type { WorkEntity } from '@/entity';
+import type { WorkRepository } from '@/interfaces';
 
 @Injectable()
 export class AppRepository implements WorkRepository {

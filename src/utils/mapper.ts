@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 
-import type { WorkMapper } from '@/interfaces';
-import { WorkEntity } from '@/entity';
 import {
-    WorkDto,
     CreateWorkDto,
-    UpdateWorkDto,
-    RemoveWorkDto,
     PreviewWorkDto,
+    RemoveWorkDto,
+    UpdateWorkDto,
+    WorkDto,
 } from '@/dto';
+import { WorkEntity } from '@/entity';
+import type { WorkMapper } from '@/interfaces';
 
 @Injectable()
 export class AppMapper implements WorkMapper {

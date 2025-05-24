@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "nest build",
+    "check": "biome check --write --organize-imports-enabled=true",
     "format": "biome format --write",
     "start": "nest start",
     "start:dev": "nest start --watch",

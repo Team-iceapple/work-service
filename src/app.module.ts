@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
 
+import { AppController } from '@/app.controller';
+import { AppRepository } from '@/app.repository';
+import { AppService } from '@/app.service';
+import { MulterConfigService, configValidate } from '@/config';
 import { AppMapper } from '@/utils';
-import { configValidate, MulterConfigService } from '@/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AppRepository } from './app.repository';
+
 @Module({
     imports: [
         ConfigModule.forRoot({

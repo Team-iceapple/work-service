@@ -1,9 +1,8 @@
 import { Test, type TestingModule } from '@nestjs/testing';
-import { mock, MockProxy } from 'jest-mock-extended';
+import { MockProxy, mock } from 'jest-mock-extended';
 
-import { AppService } from './app.service';
-import {AppRepository} from './app.repository';
-import {AppMapper} from '@/utils';
+import { AppRepository } from '@/app.repository';
+import { AppService } from '@/app.service';
 import {
     CreateWorkBody,
     CreateWorkDto,
@@ -15,8 +14,9 @@ import {
     UpdateWorkFile,
     WorkDto,
 } from '@/dto';
-import {WorkEntity} from '@/entity';
-import {WorkNotFoundException} from '@/exceptions';
+import { WorkEntity } from '@/entity';
+import { WorkNotFoundException } from '@/exceptions';
+import { AppMapper } from '@/utils';
 
 describe('AppService', () => {
     let service: AppService;
@@ -25,11 +25,7 @@ describe('AppService', () => {
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
-            providers: [
-                AppService,
-                AppRepository,
-                AppMapper,
-            ],
+            providers: [AppService, AppRepository, AppMapper],
         })
             .overrideProvider(AppRepository)
             .useValue(mock<AppRepository>())
@@ -65,7 +61,8 @@ describe('AppService', () => {
                 },
             ];
 
-            const mockFindAll = repository.findAll.mockResolvedValue(workEntities);
+            const mockFindAll =
+                repository.findAll.mockResolvedValue(workEntities);
 
             const actual = await service.findAll();
 
@@ -149,7 +146,9 @@ describe('AppService', () => {
             const mockRemove = repository.remove.mockResolvedValue();
             repository.isExist.mockResolvedValue(false);
 
-            await expect(service.remove(removeWorkDto)).rejects.toThrow(WorkNotFoundException);
+            await expect(service.remove(removeWorkDto)).rejects.toThrow(
+                WorkNotFoundException,
+            );
             expect(mockRemove).toHaveBeenCalledTimes(0);
         });
 
@@ -197,7 +196,9 @@ describe('AppService', () => {
             const mockRemove = repository.remove.mockResolvedValue();
             repository.isExist.mockResolvedValue(false);
 
-            await expect(service.remove(removeWorkDto)).rejects.toThrow(WorkNotFoundException);
+            await expect(service.remove(removeWorkDto)).rejects.toThrow(
+                WorkNotFoundException,
+            );
             expect(mockRemove).toHaveBeenCalledTimes(0);
         });
 

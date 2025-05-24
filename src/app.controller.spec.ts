@@ -1,9 +1,6 @@
 import { Test, type TestingModule } from '@nestjs/testing';
-import { mock, MockProxy } from 'jest-mock-extended';
+import { MockProxy, mock } from 'jest-mock-extended';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
 import {
     CreateWorkBody,
     CreateWorkDto,
@@ -15,7 +12,9 @@ import {
     UpdateWorkFile,
     WorkDto,
 } from '@/dto';
-import { Express } from 'express';
+import { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 describe('AppController', () => {
     let controller: AppController;

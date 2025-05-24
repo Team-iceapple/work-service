@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
 import { HttpStatus } from '@nestjs/common';
+import { NextFunction, Request, Response } from 'express';
 
 export function serveFileMiddleware(
     req: Request,

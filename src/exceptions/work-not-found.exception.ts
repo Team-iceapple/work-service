@@ -1,5 +1,6 @@
-import { ServiceException } from './service-exception';
 import { HttpStatus } from '@nestjs/common';
+
+import { ServiceException } from './service-exception';
 
 export class WorkNotFoundException extends ServiceException {
     constructor(id: string) {

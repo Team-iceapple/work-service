@@ -1,7 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import type { WorkService } from '@/interfaces';
-import { AppMapper } from '@/utils';
 import { AppRepository } from '@/app.repository';
 import type {
     CreateWorkDto,
@@ -11,6 +9,8 @@ import type {
     WorkDto,
 } from '@/dto';
 import { WorkNotFoundException } from '@/exceptions';
+import type { WorkService } from '@/interfaces';
+import { AppMapper } from '@/utils';
 
 @Injectable()
 export class AppService implements WorkService {

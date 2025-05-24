@@ -2,13 +2,11 @@ import {
     Body,
     Controller,
     Delete,
-    FileTypeValidator,
     Get,
     HttpCode,
     HttpStatus,
     Logger,
     Param,
-    ParseFilePipe,
     ParseUUIDPipe,
     Patch,
     Post,
@@ -16,9 +14,9 @@ import {
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
-import { AppService } from './app.service';
-import type { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
+import { AppService } from '@/app.service';
 import {
     CreateWorkBody,
     CreateWorkDto,
@@ -28,12 +26,12 @@ import {
     UpdateWorkDto,
     UpdateWorkFile,
 } from '@/dto';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { FormDataOnlyGuard } from '@/guard';
 import {
     CreateWorkFileValidationPipe,
     UpdateWorkFileValidationPipe,
 } from '@/pipe';
-import { FormDataOnlyGuard } from '@/guard';
+import type { GetDetailWorkResponse, GetWorksResponse } from '@/responses';
 import { getWorkFileFields } from '@/utils';
 
 @Controller('works')
