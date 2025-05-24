@@ -24,6 +24,7 @@ export class AppService implements WorkService {
     async create(createWorkDto: CreateWorkDto): Promise<void> {
         this.logger.debug('create');
         const entity = this.mapper.toEntity(createWorkDto);
+        this.logger.debug(entity);
         await this.repository.create(entity);
     }
 
