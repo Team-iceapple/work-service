@@ -20,6 +20,9 @@ export class EnvironmentVariables {
     @IsString()
     DB_PASSWORD: string;
 
+    @IsString()
+    DB_HOST: string;
+
     @IsNumber()
     @Min(0)
     @Max(65535)
