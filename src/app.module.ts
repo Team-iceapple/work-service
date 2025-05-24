@@ -10,7 +10,7 @@ import {
     configValidate,
     kyselyConfigFactory,
 } from '@/config';
-import { AppMapper } from '@/utils';
+import {AppMapper, FileManager} from '@/utils';
 import { KyselyModule } from 'nestjs-kysely';
 
 @Module({
@@ -28,6 +28,6 @@ import { KyselyModule } from 'nestjs-kysely';
         }),
     ],
     controllers: [AppController],
-    providers: [AppService, AppRepository, AppMapper],
+    providers: [AppService, AppRepository, AppMapper, FileManager],
 })
 export class AppModule {}

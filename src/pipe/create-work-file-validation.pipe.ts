@@ -5,12 +5,8 @@ import { CreateWorkFile } from '@/dto';
 @Injectable()
 export class CreateWorkFileValidationPipe implements PipeTransform {
     transform(value: CreateWorkFile) {
-        console.info(value);
         const errors: string[] = [];
         const { thumbnail, pdf } = value;
-
-        console.info(thumbnail);
-        console.info(pdf);
 
         if (!thumbnail) {
             errors.push('thumbnail file is required');
