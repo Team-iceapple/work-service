@@ -1,10 +1,24 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { MulterModule } from '@nestjs/platform-express';
+
+import { AppController } from '@/app.controller';
+import { AppRepository } from '@/app.repository';
+import { AppService } from '@/app.service';
+import { MulterConfigService, configValidate } from '@/config';
+import { AppMapper } from '@/utils';
 
 @Module({
-    imports: [],
+    imports: [
+        ConfigModule.forRoot({
+            isGlobal: true,
+            validate: configValidate,
+        }),
+        MulterModule.registerAsync({
+            useClass: MulterConfigService,
+        }),
+    ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, AppRepository, AppMapper],
 })
 export class AppModule {}
