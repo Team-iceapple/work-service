@@ -1,11 +1,14 @@
-import { HttpStatus } from '@nestjs/common';
+import {HttpStatus, Logger} from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
+
+const serveFileLogger = new Logger(serveFileMiddleware.name);
 
 export function serveFileMiddleware(
     req: Request,
     res: Response,
     next: NextFunction,
 ) {
+    serveFileLogger.log('start');
     const accept = req.get('Accept') ?? null;
 
     if (!accept || accept === '*/*') {
@@ -31,5 +34,6 @@ export function serveFileMiddleware(
     }
 
     res.setHeader('Content-Type', contentType);
+    serveFileLogger.log(`setContentType: ${contentType}`);
     next();
 }

@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 import { AppModule } from '@/app.module';
 import {
+    APP_PREFIX,
     Environment,
     EnvironmentVariables,
     FILE_SERVE_PREFIX,
@@ -22,8 +23,12 @@ async function bootstrap() {
 
     const port = configService.get<number>('PORT');
 
-    if (configService.get<Environment>('NODE_ENV') === 'production')
-        app.setGlobalPrefix('iceapple/project');
+    let STATIC_ASSET_PREFIX: string = FILE_SERVE_PREFIX;
+
+    if (configService.get<Environment>('NODE_ENV') === 'production') {
+        app.setGlobalPrefix(APP_PREFIX);
+        STATIC_ASSET_PREFIX = `/${APP_PREFIX}${FILE_SERVE_PREFIX}/`;
+    }
 
     app.enableCors({
         origin: ['http://localhost:5173'],
@@ -33,7 +38,7 @@ async function bootstrap() {
     app.use(requestLogMiddleware);
     app.use(FILE_SERVE_PREFIX, serveFileMiddleware);
     app.useStaticAssets(FILE_UPLOAD_PATH, {
-        prefix: FILE_SERVE_PREFIX,
+        prefix: STATIC_ASSET_PREFIX,
     });
 
     app.useGlobalFilters(new CustomExceptionFilter());
