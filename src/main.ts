@@ -24,6 +24,12 @@ async function bootstrap() {
 
     if (configService.get<Environment>('NODE_ENV') === 'production')
         app.setGlobalPrefix('iceapple/project');
+
+    app.enableCors({
+        origin: ['http://localhost:5173'],
+        methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Accept'],
+    });
     app.use(requestLogMiddleware);
     app.use(FILE_SERVE_PREFIX, serveFileMiddleware);
     app.useStaticAssets(FILE_UPLOAD_PATH, {
