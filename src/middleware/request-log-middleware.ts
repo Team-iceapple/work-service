@@ -1,5 +1,5 @@
-import {NextFunction, Request, Response} from 'express';
-import {Logger} from '@nestjs/common';
+import { Logger } from '@nestjs/common';
+import { NextFunction, Request, Response } from 'express';
 
 const requestLogger = new Logger(requestLogMiddleware.name);
 

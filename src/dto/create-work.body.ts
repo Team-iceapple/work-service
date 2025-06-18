@@ -1,6 +1,14 @@
-import {plainToInstance, Transform, Type} from 'class-transformer';
-import {IsArray, IsNumber, IsString, IsUrl, Length, MinLength, ValidateNested} from 'class-validator';
-import {MemberDto} from '@/dto/member.dto';
+import { MemberDto } from '@/dto/member.dto';
+import { Transform, Type, plainToInstance } from 'class-transformer';
+import {
+    IsArray,
+    IsNumber,
+    IsString,
+    IsUrl,
+    Length,
+    MinLength,
+    ValidateNested,
+} from 'class-validator';
 
 export class CreateWorkBody {
     @IsString()

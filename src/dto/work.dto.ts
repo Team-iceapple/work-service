@@ -1,4 +1,4 @@
-import {MemberDto} from '@/dto/member.dto';
+import { MemberDto } from '@/dto/member.dto';
 
 export class WorkDto {
     id: string;

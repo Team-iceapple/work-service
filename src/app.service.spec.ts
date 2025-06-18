@@ -3,6 +3,7 @@ import { MockProxy, mock } from 'jest-mock-extended';
 
 import { AppRepository } from '@/app.repository';
 import { AppService } from '@/app.service';
+import { SelectWork } from '@/database/table';
 import {
     CreateWorkBody,
     CreateWorkDto,
@@ -16,7 +17,6 @@ import {
 } from '@/dto';
 import { WorkNotFoundException } from '@/exceptions';
 import { AppMapper, FileManager } from '@/utils';
-import {SelectWork} from '@/database/table';
 
 describe('AppService', () => {
     let service: AppService;
@@ -45,10 +45,12 @@ describe('AppService', () => {
                 id: 'uuid1',
                 name: 'name1',
                 team_name: 'teamName1',
-                members: [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 thumbnail: 'thumbnail1',
                 pdf_url: 'pdf_url',
                 description: 'description',
@@ -63,10 +65,12 @@ describe('AppService', () => {
                 {
                     id: 'uuid1',
                     name: 'name1',
-                    members: [{
-                        name: 'member1',
-                        extra: 'is good',
-                    }],
+                    members: [
+                        {
+                            name: 'member1',
+                            extra: 'is good',
+                        },
+                    ],
                     thumbnail: 'thumbnail1',
                     year: 2025,
                 },
@@ -87,10 +91,12 @@ describe('AppService', () => {
             id: 'uuid1',
             name: 'name1',
             team_name: 'teamName1',
-            members: [{
-                name: 'member1',
-                extra: 'is good',
-            }],
+            members: [
+                {
+                    name: 'member1',
+                    extra: 'is good',
+                },
+            ],
             thumbnail: 'thumbnail1',
             pdf_url: 'pdf_url',
             description: 'description',
@@ -105,10 +111,12 @@ describe('AppService', () => {
                 id: 'uuid1',
                 name: 'name1',
                 team_name: 'teamName1',
-                members:  [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 pdf_url: 'pdf_url',
                 description: 'description',
                 main_url: 'https://github.com',
@@ -131,10 +139,12 @@ describe('AppService', () => {
                 name: 'name',
                 team_name: 'teamName1',
                 description: 'description',
-                members:  [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 main_url: 'https://github.com',
                 year: 2025,
             };
@@ -183,10 +193,12 @@ describe('AppService', () => {
             const updateWorkBody: UpdateWorkBody = {
                 name: 'updated name',
                 description: 'updated description',
-                members:  [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 year: 2026,
             };
 
@@ -208,10 +220,12 @@ describe('AppService', () => {
                 id: 'uuid1',
                 name: 'name1',
                 team_name: 'teamName1',
-                members: [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 thumbnail: 'thumbnail1',
                 pdf_url: 'pdf_url',
                 description: 'description',
@@ -256,10 +270,12 @@ describe('AppService', () => {
                 id: 'uuid1',
                 name: 'name1',
                 team_name: 'teamName1',
-                members: [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 thumbnail: 'thumbnail1',
                 pdf_url: 'pdf_url',
                 description: 'description',

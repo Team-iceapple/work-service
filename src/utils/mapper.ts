@@ -1,13 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import {
-    CreateWorkDto,
-    PreviewWorkDto,
-    UpdateWorkDto,
-    WorkDto,
-} from '@/dto';
+import { InsertWork, SelectWork, UpdateWork } from '@/database/table';
+import { CreateWorkDto, PreviewWorkDto, UpdateWorkDto, WorkDto } from '@/dto';
 import type { WorkMapper } from '@/interfaces';
-import {InsertWork, SelectWork, UpdateWork} from '@/database/table';
 
 @Injectable()
 export class AppMapper implements WorkMapper {
@@ -46,7 +41,7 @@ export class AppMapper implements WorkMapper {
             main_url: dto.main_url,
             pdf_url: dto.pdf.filename,
             year: dto.year,
-        }
+        };
     }
 
     toUpdate(dto: UpdateWorkDto): UpdateWork {
@@ -59,6 +54,6 @@ export class AppMapper implements WorkMapper {
             thumbnail: dto.thumbnail?.filename,
             pdf_url: dto.pdf?.filename,
             year: dto.year,
-        }
+        };
     }
 }

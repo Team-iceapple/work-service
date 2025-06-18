@@ -1,5 +1,12 @@
-import {ColumnType, Generated, Insertable, JSONColumnType, Selectable, Updateable} from 'kysely';
-import {MemberLike} from '@/dto';
+import { MemberLike } from '@/dto';
+import {
+    ColumnType,
+    Generated,
+    Insertable,
+    JSONColumnType,
+    Selectable,
+    Updateable,
+} from 'kysely';
 
 export interface WorkTable {
     id: Generated<string>;
@@ -8,7 +15,7 @@ export interface WorkTable {
 
     team_name: string;
 
-    members: JSONColumnType<MemberLike[]>
+    members: JSONColumnType<MemberLike[]>;
 
     thumbnail: string;
 

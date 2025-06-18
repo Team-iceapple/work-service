@@ -1,4 +1,4 @@
-import {InsertWork, SelectWork, UpdateWork} from '@/database/table';
+import { InsertWork, SelectWork, UpdateWork } from '@/database/table';
 
 export interface WorkRepository {
     findAll(): Promise<SelectWork[]>;

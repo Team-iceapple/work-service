@@ -3,9 +3,9 @@ import { Kysely } from 'kysely';
 import { InjectKysely } from 'nestjs-kysely';
 
 import { Database } from '@/database';
+import { InsertWork, UpdateWork } from '@/database/table';
+import { SelectWork } from '@/database/table/work';
 import type { WorkRepository } from '@/interfaces';
-import {InsertWork, UpdateWork} from '@/database/table';
-import {SelectWork} from '@/database/table/work';
 
 @Injectable()
 export class AppRepository implements WorkRepository {
@@ -21,7 +21,10 @@ export class AppRepository implements WorkRepository {
 
     async findAll(): Promise<SelectWork[]> {
         this.logger.debug('findAll');
-        const workSelects = await this.db.selectFrom('work').selectAll().execute();
+        const workSelects = await this.db
+            .selectFrom('work')
+            .selectAll()
+            .execute();
         this.logger.debug(workSelects);
         return workSelects;
     }

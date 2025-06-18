@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+import * as fsp from 'node:fs/promises';
 import { ServiceExceptionResponse } from '@/responses';
 import {
     ArgumentsHost,
@@ -5,11 +7,10 @@ import {
     Catch,
     ExceptionFilter,
     HttpException,
-    HttpStatus, Logger,
+    HttpStatus,
+    Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import * as fs from 'node:fs';
-import * as fsp from 'node:fs/promises';
 
 type NestJsExceptionResponse = {
     message: string | string[];
@@ -58,14 +59,18 @@ export class CustomExceptionFilter implements ExceptionFilter {
         response.status(status).json(body);
     }
 
-    private async deleteUploadedFiles(files: Record<string, Express.Multer.File[]> | Express.Multer.File[]) {
+    private async deleteUploadedFiles(
+        files: Record<string, Express.Multer.File[]> | Express.Multer.File[],
+    ) {
         const deletePromises: Promise<void>[] = [];
 
         if (Array.isArray(files)) {
-            for (const file of files) deletePromises.push(this.unlinkFile(file.path));
+            for (const file of files)
+                deletePromises.push(this.unlinkFile(file.path));
         } else if (typeof files === 'object') {
             for (const fieldName in files) {
-                for (const file of files[fieldName]) deletePromises.push(this.unlinkFile(file.path));
+                for (const file of files[fieldName])
+                    deletePromises.push(this.unlinkFile(file.path));
             }
         }
 
@@ -76,7 +81,9 @@ export class CustomExceptionFilter implements ExceptionFilter {
         try {
             if (fs.existsSync(filePath)) {
                 await fsp.unlink(filePath);
-                this.logger.debug(`Successfully deleted uploaded file: ${filePath}`);
+                this.logger.debug(
+                    `Successfully deleted uploaded file: ${filePath}`,
+                );
             } else {
                 this.logger.warn(`not exist to delete: ${filePath}`);
             }

@@ -1,4 +1,4 @@
-import {CreateWorkBody, CreateWorkFile, MemberDto} from '@/dto';
+import { CreateWorkBody, CreateWorkFile, MemberDto } from '@/dto';
 
 export class CreateWorkDto {
     name: string;

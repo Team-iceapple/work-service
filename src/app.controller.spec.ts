@@ -39,10 +39,12 @@ describe('AppController', () => {
                 {
                     id: 'uuid1',
                     name: 'name1',
-                    members: [{
-                        name: 'member1',
-                        extra: 'is good',
-                    }],
+                    members: [
+                        {
+                            name: 'member1',
+                            extra: 'is good',
+                        },
+                    ],
                     thumbnail: 'thumbnail1',
                     year: 2025,
                 },
@@ -69,10 +71,12 @@ describe('AppController', () => {
                 id: 'uuid1',
                 name: 'name1',
                 team_name: 'teamName1',
-                members: [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 pdf_url: 'pdf.pdf',
                 description: 'description',
                 main_url: 'https://github.com',
@@ -98,10 +102,12 @@ describe('AppController', () => {
             const createWorkBody: CreateWorkBody = {
                 name: 'name',
                 team_name: 'teamName1',
-                members: [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 description: 'description',
                 main_url: 'https://github.com',
                 year: 2025,
@@ -133,10 +139,12 @@ describe('AppController', () => {
             const updateWorkBody: UpdateWorkBody = {
                 name: 'updated name',
                 description: 'updated description',
-                members: [{
-                    name: 'member1',
-                    extra: 'is good',
-                }],
+                members: [
+                    {
+                        name: 'member1',
+                        extra: 'is good',
+                    },
+                ],
                 year: 2026,
             };
 
