@@ -1,5 +1,5 @@
 import {plainToInstance, Transform, Type} from 'class-transformer';
-import {IsArray, IsNumber, IsString, Length, MinLength, ValidateNested} from 'class-validator';
+import {IsArray, IsNumber, IsString, IsUrl, Length, MinLength, ValidateNested} from 'class-validator';
 import {MemberDto} from '@/dto/member.dto';
 
 export class CreateWorkBody {
@@ -25,6 +25,10 @@ export class CreateWorkBody {
 
     @IsString()
     description: string;
+
+    @IsString()
+    @IsUrl()
+    main_url: string;
 
     @Type(() => Number)
     @IsNumber()

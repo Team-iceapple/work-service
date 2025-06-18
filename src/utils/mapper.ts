@@ -18,6 +18,7 @@ export class AppMapper implements WorkMapper {
             team_name: select.team_name,
             members: select.members,
             description: select.description,
+            main_url: select.main_url,
             pdf_url: select.pdf_url,
             year: select.year,
         };
@@ -39,9 +40,10 @@ export class AppMapper implements WorkMapper {
         return {
             name: dto.name,
             team_name: dto.team_name,
-            description: dto.description,
             members: JSON.stringify(dto.members),
             thumbnail: dto.thumbnail.filename,
+            description: dto.description,
+            main_url: dto.main_url,
             pdf_url: dto.pdf.filename,
             year: dto.year,
         }

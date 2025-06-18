@@ -52,6 +52,7 @@ describe('AppService', () => {
                 thumbnail: 'thumbnail1',
                 pdf_url: 'pdf_url',
                 description: 'description',
+                main_url: 'https://github.com',
                 created_at: new Date('2024'),
                 year: 2025,
             },
@@ -93,6 +94,7 @@ describe('AppService', () => {
             thumbnail: 'thumbnail1',
             pdf_url: 'pdf_url',
             description: 'description',
+            main_url: 'https://github.com',
             created_at: new Date('2024'),
             year: 2025,
         };
@@ -109,6 +111,7 @@ describe('AppService', () => {
                 }],
                 pdf_url: 'pdf_url',
                 description: 'description',
+                main_url: 'https://github.com',
                 year: 2025,
             };
 
@@ -132,6 +135,7 @@ describe('AppService', () => {
                     name: 'member1',
                     extra: 'is good',
                 }],
+                main_url: 'https://github.com',
                 year: 2025,
             };
 
@@ -211,6 +215,7 @@ describe('AppService', () => {
                 thumbnail: 'thumbnail1',
                 pdf_url: 'pdf_url',
                 description: 'description',
+                main_url: 'https://github.com',
                 created_at: new Date('2024'),
                 year: 2025,
             });
@@ -258,6 +263,7 @@ describe('AppService', () => {
                 thumbnail: 'thumbnail1',
                 pdf_url: 'pdf_url',
                 description: 'description',
+                main_url: 'https://github.com',
                 created_at: new Date('2024'),
                 year: 2025,
             });

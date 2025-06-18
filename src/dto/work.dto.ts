@@ -7,5 +7,6 @@ export class WorkDto {
     members: MemberDto[];
     pdf_url: string;
     description: string;
+    main_url: string;
     year: number;
 }

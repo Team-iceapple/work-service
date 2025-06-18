@@ -75,6 +75,7 @@ describe('AppController', () => {
                 }],
                 pdf_url: 'pdf.pdf',
                 description: 'description',
+                main_url: 'https://github.com',
                 year: 2025,
             };
 
@@ -97,11 +98,12 @@ describe('AppController', () => {
             const createWorkBody: CreateWorkBody = {
                 name: 'name',
                 team_name: 'teamName1',
-                description: 'description',
                 members: [{
                     name: 'member1',
                     extra: 'is good',
                 }],
+                description: 'description',
+                main_url: 'https://github.com',
                 year: 2025,
             };
 

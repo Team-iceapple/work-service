@@ -16,6 +16,8 @@ export interface WorkTable {
 
     description: string;
 
+    main_url: string;
+
     year: number;
 
     created_at: ColumnType<Date, string | undefined, never>;
