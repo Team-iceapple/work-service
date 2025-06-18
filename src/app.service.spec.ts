@@ -44,6 +44,7 @@ describe('AppService', () => {
             {
                 id: 'uuid1',
                 name: 'name1',
+                team_name: 'teamName1',
                 members: [{
                     name: 'member1',
                     extra: 'is good',
@@ -84,6 +85,7 @@ describe('AppService', () => {
         const work: SelectWork = {
             id: 'uuid1',
             name: 'name1',
+            team_name: 'teamName1',
             members: [{
                 name: 'member1',
                 extra: 'is good',
@@ -100,6 +102,7 @@ describe('AppService', () => {
             const expected: WorkDto = {
                 id: 'uuid1',
                 name: 'name1',
+                team_name: 'teamName1',
                 members:  [{
                     name: 'member1',
                     extra: 'is good',
@@ -123,6 +126,7 @@ describe('AppService', () => {
         it('AppRepository.create를 호출한다.', async () => {
             const createWorkBody: CreateWorkBody = {
                 name: 'name',
+                team_name: 'teamName1',
                 description: 'description',
                 members:  [{
                     name: 'member1',
@@ -199,6 +203,7 @@ describe('AppService', () => {
             repository.findById.mockResolvedValue({
                 id: 'uuid1',
                 name: 'name1',
+                team_name: 'teamName1',
                 members: [{
                     name: 'member1',
                     extra: 'is good',
@@ -245,6 +250,7 @@ describe('AppService', () => {
             repository.findById.mockResolvedValue({
                 id: 'uuid1',
                 name: 'name1',
+                team_name: 'teamName1',
                 members: [{
                     name: 'member1',
                     extra: 'is good',

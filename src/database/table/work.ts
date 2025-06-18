@@ -6,6 +6,8 @@ export interface WorkTable {
 
     name: string;
 
+    team_name: string;
+
     members: JSONColumnType<MemberLike[]>
 
     thumbnail: string;

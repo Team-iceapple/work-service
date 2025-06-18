@@ -7,6 +7,10 @@ export class CreateWorkBody {
     @Length(1, 255)
     name: string;
 
+    @IsString()
+    @Length(1, 255)
+    team_name: string;
+
     @Transform(({ value }) => {
         try {
             return plainToInstance(MemberDto, JSON.parse(value));
