@@ -1,10 +1,10 @@
-import type { WorkEntity } from '@/entity';
+import {InsertWork, SelectWork, UpdateWork} from '@/database/table';
 
 export interface WorkRepository {
-    findAll(): Promise<WorkEntity[]>;
-    findById(id: string): Promise<WorkEntity | null>;
+    findAll(): Promise<SelectWork[]>;
+    findById(id: string): Promise<SelectWork | null>;
     isExist(id: string): Promise<boolean>;
-    create(entity: WorkEntity): Promise<void>;
-    update(entity: WorkEntity): Promise<void>;
-    remove(entity: WorkEntity): Promise<void>;
+    create(entity: InsertWork): Promise<void>;
+    update(entity: UpdateWork): Promise<void>;
+    remove(id: string): Promise<void>;
 }

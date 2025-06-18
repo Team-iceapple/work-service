@@ -1,5 +1,6 @@
-import { Transform, Type } from 'class-transformer';
-import { IsNumber, IsString, Length } from 'class-validator';
+import {plainToInstance, Transform, Type} from 'class-transformer';
+import {IsArray, IsNumber, IsString, Length, MinLength, ValidateNested} from 'class-validator';
+import {MemberDto} from '@/dto/member.dto';
 
 export class CreateWorkBody {
     @IsString()
@@ -7,19 +8,16 @@ export class CreateWorkBody {
     name: string;
 
     @Transform(({ value }) => {
-        if (typeof value === 'string') {
-            try {
-                const parsed = JSON.parse(value);
-                if (Array.isArray(parsed)) return parsed;
-                return [value];
-            } catch {
-                return value.split(',');
-            }
+        try {
+            return plainToInstance(MemberDto, JSON.parse(value));
+        } catch {
+            return [];
         }
-        return value;
     })
-    @IsString({ each: true })
-    members: string[];
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => MemberDto)
+    members: MemberDto[];
 
     @IsString()
     description: string;

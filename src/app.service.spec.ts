@@ -14,9 +14,9 @@ import {
     UpdateWorkFile,
     WorkDto,
 } from '@/dto';
-import { WorkEntity } from '@/entity';
 import { WorkNotFoundException } from '@/exceptions';
 import { AppMapper, FileManager } from '@/utils';
+import {SelectWork} from '@/database/table';
 
 describe('AppService', () => {
     let service: AppService;
@@ -40,25 +40,31 @@ describe('AppService', () => {
     });
 
     describe('findAll', () => {
-        it('PreviewWorkDto 목록을 반환한다.', async () => {
-            const workEntities: WorkEntity[] = [
-                {
-                    id: 'uuid1',
-                    name: 'name1',
-                    members: 'member1,member2',
-                    thumbnail: 'thumbnail1',
-                    pdf_url: 'pdf_url',
-                    description: 'description',
-                    created_at: new Date('2024'),
-                    year: 2025,
-                },
-            ];
+        const workEntities: SelectWork[] = [
+            {
+                id: 'uuid1',
+                name: 'name1',
+                members: [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
+                thumbnail: 'thumbnail1',
+                pdf_url: 'pdf_url',
+                description: 'description',
+                created_at: new Date('2024'),
+                year: 2025,
+            },
+        ];
 
+        it('PreviewWorkDto 목록을 반환한다.', async () => {
             const expected: PreviewWorkDto[] = [
                 {
                     id: 'uuid1',
                     name: 'name1',
-                    members: ['member1', 'member2'],
+                    members: [{
+                        name: 'member1',
+                        extra: 'is good',
+                    }],
                     thumbnail: 'thumbnail1',
                     year: 2025,
                 },
@@ -75,24 +81,29 @@ describe('AppService', () => {
     });
 
     describe('findById', () => {
+        const work: SelectWork = {
+            id: 'uuid1',
+            name: 'name1',
+            members: [{
+                name: 'member1',
+                extra: 'is good',
+            }],
+            thumbnail: 'thumbnail1',
+            pdf_url: 'pdf_url',
+            description: 'description',
+            created_at: new Date('2024'),
+            year: 2025,
+        };
+
         it('WorkDto를 반환한다.', async () => {
             const id = 'uuid1';
-
-            const work: WorkEntity = {
-                id: 'uuid1',
-                name: 'name1',
-                members: 'member1,member2',
-                thumbnail: 'thumbnail1',
-                pdf_url: 'pdf_url',
-                description: 'description',
-                created_at: new Date('2024'),
-                year: 2025,
-            };
-
             const expected: WorkDto = {
                 id: 'uuid1',
                 name: 'name1',
-                members: ['member1', 'member2'],
+                members:  [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
                 pdf_url: 'pdf_url',
                 description: 'description',
                 year: 2025,
@@ -113,7 +124,10 @@ describe('AppService', () => {
             const createWorkBody: CreateWorkBody = {
                 name: 'name',
                 description: 'description',
-                members: ['member'],
+                members:  [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
                 year: 2025,
             };
 
@@ -127,7 +141,7 @@ describe('AppService', () => {
                 createWorkFile,
             );
 
-            const workEntity = mapper.toEntity(createWorkDto);
+            const workEntity = mapper.toInsert(createWorkDto);
 
             const mockCreate = repository.create.mockResolvedValue();
 
@@ -161,7 +175,10 @@ describe('AppService', () => {
             const updateWorkBody: UpdateWorkBody = {
                 name: 'updated name',
                 description: 'updated description',
-                members: ['updated member'],
+                members:  [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
                 year: 2026,
             };
 
@@ -176,10 +193,22 @@ describe('AppService', () => {
                 updateWorkFile,
             );
 
-            const workEntity = mapper.toEntity(updateWorkDto);
+            const workEntity = mapper.toUpdate(updateWorkDto);
 
             const mockUpdate = repository.update.mockResolvedValue();
-            repository.findById.mockResolvedValue(new WorkEntity());
+            repository.findById.mockResolvedValue({
+                id: 'uuid1',
+                name: 'name1',
+                members: [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
+                thumbnail: 'thumbnail1',
+                pdf_url: 'pdf_url',
+                description: 'description',
+                created_at: new Date('2024'),
+                year: 2025,
+            });
 
             await service.update(updateWorkDto);
 
@@ -212,14 +241,24 @@ describe('AppService', () => {
                 id,
             };
 
-            const workEntity = mapper.toEntity(removeWorkDto);
-
             const mockRemove = repository.remove.mockResolvedValue();
-            repository.findById.mockResolvedValue(new WorkEntity());
+            repository.findById.mockResolvedValue({
+                id: 'uuid1',
+                name: 'name1',
+                members: [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
+                thumbnail: 'thumbnail1',
+                pdf_url: 'pdf_url',
+                description: 'description',
+                created_at: new Date('2024'),
+                year: 2025,
+            });
 
             await service.remove(removeWorkDto);
 
-            expect(mockRemove).toHaveBeenCalledWith(workEntity);
+            expect(mockRemove).toHaveBeenCalledWith(id);
             expect(mockRemove).toHaveBeenCalledTimes(1);
         });
     });

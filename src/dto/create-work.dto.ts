@@ -1,8 +1,8 @@
-import type { CreateWorkBody, CreateWorkFile } from '@/dto';
+import {CreateWorkBody, CreateWorkFile, MemberDto} from '@/dto';
 
 export class CreateWorkDto {
     name: string;
-    members: string[];
+    members: MemberDto[];
     description: string;
     year: number;
     thumbnail: Express.Multer.File;

@@ -39,7 +39,10 @@ describe('AppController', () => {
                 {
                     id: 'uuid1',
                     name: 'name1',
-                    members: ['member1'],
+                    members: [{
+                        name: 'member1',
+                        extra: 'is good',
+                    }],
                     thumbnail: 'thumbnail1',
                     year: 2025,
                 },
@@ -65,7 +68,10 @@ describe('AppController', () => {
             const work: WorkDto = {
                 id: 'uuid1',
                 name: 'name1',
-                members: ['member'],
+                members: [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
                 pdf_url: 'pdf.pdf',
                 description: 'description',
                 year: 2025,
@@ -90,7 +96,10 @@ describe('AppController', () => {
             const createWorkBody: CreateWorkBody = {
                 name: 'name',
                 description: 'description',
-                members: ['member'],
+                members: [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
                 year: 2025,
             };
 
@@ -120,7 +129,10 @@ describe('AppController', () => {
             const updateWorkBody: UpdateWorkBody = {
                 name: 'updated name',
                 description: 'updated description',
-                members: ['updated member'],
+                members: [{
+                    name: 'member1',
+                    extra: 'is good',
+                }],
                 year: 2026,
             };
 
