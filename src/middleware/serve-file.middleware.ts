@@ -1,4 +1,4 @@
-import {HttpStatus, Logger} from '@nestjs/common';
+import { HttpStatus, Logger } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 
 const serveFileLogger = new Logger(serveFileMiddleware.name);

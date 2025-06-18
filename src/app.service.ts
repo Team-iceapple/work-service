@@ -26,7 +26,7 @@ export class AppService implements WorkService {
     async create(createWorkDto: CreateWorkDto): Promise<void> {
         this.logger.debug('create');
         this.logger.debug(createWorkDto);
-        const entity = this.mapper.toEntity(createWorkDto);
+        const entity = this.mapper.toInsert(createWorkDto);
         this.logger.debug(entity);
         await this.repository.create(entity);
     }
@@ -53,7 +53,7 @@ export class AppService implements WorkService {
         const entity = await this.repository.findById(updateWorkDto.id);
         if (!entity) throw new WorkNotFoundException(updateWorkDto.id);
 
-        const updatedEntity = this.mapper.toEntity(updateWorkDto);
+        const updatedEntity = this.mapper.toUpdate(updateWorkDto);
         this.logger.debug(updatedEntity);
 
         const targetFileNames: string[] = [];
@@ -81,8 +81,8 @@ export class AppService implements WorkService {
             this.fileManager.deleteFile(name),
         );
 
-        await Promise.all(promises);
+        await Promise.allSettled(promises);
 
-        await this.repository.remove(entity);
+        await this.repository.remove(entity.id);
     }
 }

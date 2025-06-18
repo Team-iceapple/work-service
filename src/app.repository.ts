@@ -3,7 +3,8 @@ import { Kysely } from 'kysely';
 import { InjectKysely } from 'nestjs-kysely';
 
 import { Database } from '@/database';
-import type { WorkEntity } from '@/entity';
+import { InsertWork, UpdateWork } from '@/database/table';
+import { SelectWork } from '@/database/table/work';
 import type { WorkRepository } from '@/interfaces';
 
 @Injectable()
@@ -12,26 +13,33 @@ export class AppRepository implements WorkRepository {
 
     constructor(@InjectKysely() private readonly db: Kysely<Database>) {}
 
-    async create(entity: WorkEntity): Promise<void> {
+    async create(entity: InsertWork): Promise<void> {
         this.logger.debug('create');
+        this.logger.debug(entity);
         await this.db.insertInto('work').values(entity).execute();
     }
 
-    async findAll(): Promise<WorkEntity[]> {
+    async findAll(): Promise<SelectWork[]> {
         this.logger.debug('findAll');
-        return this.db.selectFrom('work').selectAll().execute();
+        const workSelects = await this.db
+            .selectFrom('work')
+            .selectAll()
+            .execute();
+        this.logger.debug(workSelects);
+        return workSelects;
     }
 
-    async findById(id: string): Promise<WorkEntity | null> {
+    async findById(id: string): Promise<SelectWork | null> {
         this.logger.debug('findById');
+        const workSelect = await this.db
+            .selectFrom('work')
+            .selectAll()
+            .where('id', '=', id)
+            .executeTakeFirst();
 
-        return (
-            (await this.db
-                .selectFrom('work')
-                .selectAll()
-                .where('id', '=', id)
-                .executeTakeFirst()) ?? null
-        );
+        if (!workSelect) return null;
+
+        return workSelect;
     }
 
     async isExist(id: string): Promise<boolean> {
@@ -51,13 +59,13 @@ export class AppRepository implements WorkRepository {
         return Boolean(result?.exists);
     }
 
-    async remove(entity: WorkEntity): Promise<void> {
+    async remove(id: string): Promise<void> {
         this.logger.debug('remove');
 
-        await this.db.deleteFrom('work').where('id', '=', entity.id).execute();
+        await this.db.deleteFrom('work').where('id', '=', id).execute();
     }
 
-    async update(entity: WorkEntity): Promise<void> {
+    async update(entity: UpdateWork): Promise<void> {
         this.logger.debug('update');
 
         await this.db

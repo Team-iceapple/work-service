@@ -1,28 +1,42 @@
-import { Transform, Type } from 'class-transformer';
-import { IsNumber, IsString, Length } from 'class-validator';
+import { MemberDto } from '@/dto/member.dto';
+import { Transform, Type, plainToInstance } from 'class-transformer';
+import {
+    IsArray,
+    IsNumber,
+    IsString,
+    IsUrl,
+    Length,
+    MinLength,
+    ValidateNested,
+} from 'class-validator';
 
 export class CreateWorkBody {
     @IsString()
     @Length(1, 255)
     name: string;
 
+    @IsString()
+    @Length(1, 255)
+    team_name: string;
+
     @Transform(({ value }) => {
-        if (typeof value === 'string') {
-            try {
-                const parsed = JSON.parse(value);
-                if (Array.isArray(parsed)) return parsed;
-                return [value];
-            } catch {
-                return value.split(',');
-            }
+        try {
+            return plainToInstance(MemberDto, JSON.parse(value));
+        } catch {
+            return [];
         }
-        return value;
     })
-    @IsString({ each: true })
-    members: string[];
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => MemberDto)
+    members: MemberDto[];
 
     @IsString()
     description: string;
+
+    @IsString()
+    @IsUrl()
+    main_url: string;
 
     @Type(() => Number)
     @IsNumber()

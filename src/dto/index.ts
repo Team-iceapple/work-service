@@ -1,4 +1,5 @@
 export { WorkDto } from './work.dto';
+export { MemberDto, type MemberLike } from '@/dto/member.dto';
 export { PreviewWorkDto } from './preview-work.dto';
 
 export { CreateWorkBody } from './create-work.body';
