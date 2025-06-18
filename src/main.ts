@@ -36,7 +36,7 @@ async function bootstrap() {
         allowedHeaders: ['Content-Type', 'Accept'],
     });
     app.use(requestLogMiddleware);
-    app.use(FILE_SERVE_PREFIX, serveFileMiddleware);
+    app.use(STATIC_ASSET_PREFIX, serveFileMiddleware);
     app.useStaticAssets(FILE_UPLOAD_PATH, {
         prefix: STATIC_ASSET_PREFIX,
     });
