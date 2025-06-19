@@ -1,11 +1,13 @@
 import { IsEnum, IsNumber, IsString, Max, Min } from 'class-validator';
 
+import { Type } from 'class-transformer';
 import { Environment } from './environment.enum';
 
 export class EnvironmentVariables {
     @IsEnum(Environment)
     NODE_ENV: Environment;
 
+    @Type(() => Number)
     @IsNumber()
     @Min(0)
     @Max(65535)
@@ -23,6 +25,7 @@ export class EnvironmentVariables {
     @IsString()
     DB_HOST: string;
 
+    @Type(() => Number)
     @IsNumber()
     @Min(0)
     @Max(65535)
