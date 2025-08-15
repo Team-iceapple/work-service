@@ -24,6 +24,7 @@ export class AppRepository implements WorkRepository {
         const workSelects = await this.db
             .selectFrom('work')
             .selectAll()
+            .orderBy('created_at', 'desc')
             .execute();
         this.logger.debug(workSelects);
         return workSelects;
