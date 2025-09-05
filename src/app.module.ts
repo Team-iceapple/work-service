@@ -12,6 +12,7 @@ import {
     kyselyConfigFactory,
 } from '@/config';
 import { AppMapper, FileManager } from '@/utils';
+import {AdminController} from '@/admin.controller';
 
 @Module({
     imports: [
@@ -27,7 +28,7 @@ import { AppMapper, FileManager } from '@/utils';
             useClass: MulterConfigService,
         }),
     ],
-    controllers: [AppController],
+    controllers: [AppController, AdminController],
     providers: [AppService, AppRepository, AppMapper, FileManager],
 })
 export class AppModule {}
