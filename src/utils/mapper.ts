@@ -25,6 +25,7 @@ export class AppMapper implements WorkMapper {
         dto.id = entity.id;
         dto.name = entity.name;
         dto.members = entity.members;
+        dto.description = entity.description;
         dto.thumbnail = entity.thumbnail;
         dto.year = entity.year;
 
